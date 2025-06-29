@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BridgeNav - Maritime Safety Management Systems</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'maritime': {
+                            'dark': '#374151',     
+                            'blue': '#3b82f6',     
+                            'light': '#f8fafc',    
+                            'emergency': '#dc2626', 
+                        }
+                    }
+                },
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        function NavBar() {
+            const [currentPage, setCurrentPage] = useState('home');
+            const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+            const isActive = (page) => currentPage === page;
+
+            return (
+                <nav className="bg-white shadow-sm border-b border-gray-200">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex justify-between items-center h-16">
+                            <div className="flex items-center space-x-2">
+                                <div className="text-2xl font-bold text-maritime-dark">⚓ BridgeNav</div>
+                            </div>
+
+                            <div className="hidden md:flex items-center space-x-8">
+                                <button 
+                                    onClick={() => setCurrentPage('home')}
+                                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                                        isActive('home') 
+                                            ? 'text-maritime-blue bg-blue-50' 
+                                            : 'text-gray-700 hover:text-maritime-blue'
+                                    }`}
+                                >
+                                    Home
+                                </button>
+                                <button 
+                                    onClick={() => setCurrentPage('about')}
+                                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                                        isActive('about') 
+                                            ? 'text-maritime-blue bg-blue-50' 
+                                            : 'text-gray-700 hover:text-maritime-blue'
+                                    }`}
+                                >
+                                    About
+                                </button>
+                                <button 
+                                    onClick={() => setCurrentPage('quicklog')}
+                                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                                        isActive('quicklog') 
+                                            ? 'text-maritime-blue bg-blue-50' 
+                                            : 'text-gray-700 hover:text-maritime-blue'
+                                    }`}
+                                >
+                                    QuickLog Pro
+                                </button>
+                                <button 
+                                    onClick={() => setCurrentPage('contact')}
+                                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                                        isActive('contact') 
+                                            ? 'text-maritime-blue bg-blue-50' 
+                                            : 'text-gray-700 hover:text-maritime-blue'
+                                    }`}
+                                >
+                                    Contact
+                                </button>
+                                <button className="bg-maritime-blue text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors">
+                                    Get Started
+                                </button>
+                            </div>
+
+                            <div className="md:hidden">
+                                <button
+                                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                                    className="text-gray-700 hover:text-maritime-blue focus:outline-none"
+                                >
+                                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        {isMenuOpen && (
+                            <div className="md:hidden">
+                                <div className="px-2 pt-2 pb-3 space-y-1 bg-gray-50 rounded-md mt-2">
+                                    <button 
+                                        onClick={() => { setCurrentPage('home'); setIsMenuOpen(false); }}
+                                        className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-maritime-blue hover:bg-gray-100"
+                                    >
+                                        Home
+                                    </button>
+                                    <button 
+                                        onClick={() => { setCurrentPage('about'); setIsMenuOpen(false); }}
+                                        className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-maritime-blue hover:bg-gray-100"
+                                    >
+                                        About
+                                    </button>
+                                    <button 
+                                        onClick={() => { setCurrentPage('quicklog'); setIsMenuOpen(false); }}
+                                        className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-maritime-blue hover:bg-gray-100"
+                                    >
+                                        QuickLog Pro
+                                    </button>
+                                    <button 
+                                        onClick={() => { setCurrentPage('contact'); setIsMenuOpen(false); }}
+                                        className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-maritime-blue hover:bg-gray-100"
+                                    >
+                                        Contact
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </nav>
+            );
+        }
+
+        function Hero() {
+            return (
+                <section className="bg-gradient-to-br from-maritime-light to-white py-20">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center">
+                            <h1 className="text-4xl md:text-6xl font-bold text-maritime-dark mb-6">
+                                Professional Maritime
+                                <span className="block text-maritime-blue">Safety & Training</span>
+                            </h1>
+                            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                                Built by experienced marine pilots for the maritime industry. 
+                                Comprehensive SMS solutions, training resources, and safety systems 
+                                for workboats and merchant vessels.
+                            </p>
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                <button className="bg-maritime-blue text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors">
+                                    Try QuickLog Pro
+                                </button>
+                                <button className="border border-maritime-dark text-maritime-dark px-8 py-3 rounded-lg font-semibold hover:bg-maritime-dark hover:text-white transition-colors">
+                                    Learn More
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        function FeatureCards() {
+            const features = [
+                {
+                    title: "QuickLog Pro",
+                    description: "Comprehensive SMS app for small commercial vessels, starting with UK Workboat Code compliance.",
+                    icon: "📋",
+                    status: "Available",
+                    color: "bg-blue-50 border-blue-200"
+                },
+                {
+                    title: "Maritime Tools",
+                    description: "Professional logbooks, ERB toolkits, BRM resources, and downloadable compliance tools.",
+                    icon: "🛠️",
+                    status: "Coming Soon",
+                    color: "bg-green-50 border-green-200"
+                },
+                {
+                    title: "Training Content",
+                    description: "BRM courses, Chief Mate guides, port operations content, and practical maritime publications.",
+                    icon: "📚",
+                    status: "In Development",
+                    color: "bg-purple-50 border-purple-200"
+                },
+                {
+                    title: "Safety Systems",
+                    description: "Onboard familiarisation systems, log auto-generators, and inspection preparation tools.",
+                    icon: "⚓",
+                    status: "Planned",
+                    color: "bg-orange-50 border-orange-200"
+                }
+            ];
+
+            return (
+                <section className="py-20 bg-white">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center mb-16">
+                            <h2 className="text-3xl md:text-4xl font-bold text-maritime-dark mb-4">
+                                Maritime Solutions Built by Professionals
+                            </h2>
+                            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                                Comprehensive tools and training designed for real-world maritime operations, 
+                                backed by 7 years of pilotage experience and Master Unlimited CoC.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                            {features.map((feature, index) => (
+                                <div key={index} className={`${feature.color} border-2 rounded-lg p-6 hover:shadow-lg transition-shadow`}>
+                                    <div className="text-4xl mb-4">{feature.icon}</div>
+                                    <h3 className="text-xl font-semibold text-maritime-dark mb-3">{feature.title}</h3>
+                                    <p className="text-gray-600 mb-4">{feature.description}</p>
+                                    <span className="inline-block px-3 py-1 bg-white rounded-full text-sm font-medium text-gray-700 border">
+                                        {feature.status}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        function Home() {
+            return (
+                <div>
+                    <Hero />
+                    <FeatureCards />
+                </div>
+            );
+        }
+
+        function About() {
+            return (
+                <div className="py-20">
+                    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center mb-16">
+                            <h1 className="text-4xl font-bold text-maritime-dark mb-6">About BridgeNav</h1>
+                            <p className="text-xl text-gray-600">
+                                Professional maritime solutions built by experienced mariners for the industry
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+                            <div>
+                                <h2 className="text-2xl font-semibold text-maritime-dark mb-6">Our Story</h2>
+                                <p className="text-gray-600 mb-4">
+                                    BridgeNav was founded by Johnny, a UK marine pilot with a Master Unlimited Certificate of Competency 
+                                    and 7 years of specialized pilotage experience. Before pilotage, Johnny worked at sea in various 
+                                    deck officer roles, including Master, primarily on large passenger ferries.
+                                </p>
+                                <p className="text-gray-600 mb-4">
+                                    Drawing from real-world maritime experience and identifying regulatory gaps, BridgeNav develops 
+                                    practical solutions that address the actual pain points faced by maritime professionals daily.
+                                </p>
+                                <p className="text-gray-600">
+                                    Our platform serves both workboat operators and large merchant vessel crews, providing the tools 
+                                    and training necessary for safe, compliant maritime operations.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h2 className="text-2xl font-semibold text-maritime-dark mb-6">Our Mission</h2>
+                                <div className="space-y-4">
+                                    <div className="flex items-start space-x-3">
+                                        <div className="w-2 h-2 bg-maritime-blue rounded-full mt-2"></div>
+                                        <p className="text-gray-600">
+                                            Provide professional-grade safety management systems for commercial vessels
+                                        </p>
+                                    </div>
+                                    <div className="flex items-start space-x-3">
+                                        <div className="w-2 h-2 bg-maritime-blue rounded-full mt-2"></div>
+                                        <p className="text-gray-600">
+                                            Deliver practical maritime training based on real-world experience
+                                        </p>
+                                    </div>
+                                    <div className="flex items-start space-x-3">
+                                        <div className="w-2 h-2 bg-maritime-blue rounded-full mt-2"></div>
+                                        <p className="text-gray-600">
+                                            Bridge the gap between regulatory requirements and operational reality
+                                        </p>
+                                    </div>
+                                    <div className="flex items-start space-x-3">
+                                        <div className="w-2 h-2 bg-maritime-blue rounded-full mt-2"></div>
+                                        <p className="text-gray-600">
+                                            Support maritime professionals with tools that work in the real world
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function QuickLog() {
+            return (
+                <div className="py-20">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center mb-16">
+                            <h1 className="text-4xl font-bold text-maritime-dark mb-6">QuickLog Pro</h1>
+                            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                                The professional SMS app for small commercial vessels. Starting with UK Workboat Code compliance, 
+                                expanding to larger ships and international standards.
+                            </p>
+                            <div className="inline-flex items-center bg-green-100 text-green-800 px-4 py-2 rounded-full font-medium">
+                                <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                                Ready for Production Use
+                            </div>
+                        </div>
+
+                        <div className="bg-maritime-dark text-white rounded-lg p-8 text-center">
+                            <h2 className="text-3xl font-bold mb-4">🚀 Coming Soon</h2>
+                            <p className="text-xl mb-6">
+                                QuickLog Pro is currently in final development and testing phase. 
+                                Built with real maritime experience and designed for practical use.
+                            </p>
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                <button className="bg-maritime-blue text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors">
+                                    Join Beta Testing
+                                </button>
+                                <button className="border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-maritime-dark transition-colors">
+                                    Request Demo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function Contact() {
+            return (
+                <div className="py-20">
+                    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center mb-16">
+                            <h1 className="text-4xl font-bold text-maritime-dark mb-6">Get in Touch</h1>
+                            <p className="text-xl text-gray-600">
+                                Have questions about our maritime solutions? We'd love to hear from you.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                            <div>
+                                <h2 className="text-2xl font-semibold text-maritime-dark mb-6">Send us a Message</h2>
+                                <form className="space-y-6">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                                        <input type="text" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-maritime-blue focus:border-maritime-blue" placeholder="Your full name" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                                        <input type="email" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-maritime-blue focus:border-maritime-blue" placeholder="your@email.com" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                                        <textarea rows="5" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-maritime-blue focus:border-maritime-blue" placeholder="Tell us about your maritime operations..."></textarea>
+                                    </div>
+                                    <button type="submit" className="w-full bg-maritime-blue text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors">
+                                        Send Message
+                                    </button>
+                                </form>
+                            </div>
+
+                            <div>
+                                <h2 className="text-2xl font-semibold text-maritime-dark mb-6">Contact Information</h2>
+                                <div className="space-y-6">
+                                    <div className="flex items-start space-x-4">
+                                        <div className="w-10 h-10 bg-maritime-blue rounded-lg flex items-center justify-center">
+                                            <span className="text-white font-semibold">👨‍✈️</span>
+                                        </div>
+                                        <div>
+                                            <h3 className="font-semibold text-maritime-dark">Founder</h3>
+                                            <p className="text-gray-600">
+                                                Johnny - UK Marine Pilot<br />
+                                                Master Unlimited CoC<br />
+                                                7 years pilotage experience
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function Footer() {
+            return (
+                <footer className="bg-maritime-dark text-white">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                            <div className="col-span-1 md:col-span-2">
+                                <div className="mb-4">
+                                    <div className="text-2xl font-bold">⚓ BridgeNav</div>
+                                </div>
+                                <p className="text-gray-300 mb-4 max-w-md">
+                                    Professional maritime training, tools, and safety systems for workboats and merchant vessels. 
+                                    Built by experienced marine pilots for the maritime industry.
+                                </p>
+                                <p className="text-sm text-gray-400">
+                                    Founded by Johnny, UK Marine Pilot with Master Unlimited CoC and 7 years pilotage experience.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h3 className="text-lg font-semibold mb-4">Services</h3>
+                                <ul className="space-y-2 text-gray-300">
+                                    <li>SMS for Workboats</li>
+                                    <li>Maritime Training</li>
+                                    <li>BRM Courses</li>
+                                    <li>Compliance Tools</li>
+                                    <li>Safety Systems</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+                                <ul className="space-y-2 text-gray-300">
+                                    <li>Home</li>
+                                    <li>About</li>
+                                    <li>QuickLog Pro</li>
+                                    <li>Contact</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div className="border-t border-gray-600 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                            <p className="text-gray-400 text-sm">
+                                © 2024 BridgeNav. All rights reserved.
+                            </p>
+                        </div>
+                    </div>
+                </footer>
+            );
+        }
+
+        function App() {
+            const [currentPage, setCurrentPage] = useState('home');
+
+            const renderPage = () => {
+                switch(currentPage) {
+                    case 'home': return <Home />;
+                    case 'about': return <About />;
+                    case 'quicklog': return <QuickLog />;
+                    case 'contact': return <Contact />;
+                    default: return <Home />;
+                }
+            };
+
+            return (
+                <div className="min-h-screen bg-white flex flex-col">
+                    <NavBar currentPage={currentPage} setCurrentPage={setCurrentPage} />
+                    <main className="flex-grow">
+                        {renderPage()}
+                    </main>
+                    <Footer />
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
